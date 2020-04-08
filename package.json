@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "repository": "https://github.com/Madejczyk/websocket-game.git",
+  "author": "Madejczyk <jakub.madejczyk92@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
+}
