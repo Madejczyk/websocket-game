@@ -1,17 +1,49 @@
 version: 2.1
-orbs:
-  node: circleci/node@1.1.6
+
+aliases:
+  - &docker
+    - image: circleci/node:latest-browsers
+
+  - &restore_yarn_cache
+    restore_cache:
+      name: Restore node_modules cache
+      keys:
+        - v1-node-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
+        - v1-node-{{ arch }}-{{ .Branch }}-
+        - v1-node-{{ arch }}-
+  - &run_yarn
+    run:
+      name: Install Packages
+      command: yarn --frozen-lockfile
+
 jobs:
-  build-and-lint:
-    executor:
-      name: node/default
+  setup:
+    docker: *docker
     steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run: npm install
-            - run: npm lint
+      - run:
+          name: Nodejs Version
+          command: node --version
+      - *restore_yarn_cache
+      - *run_yarn
+      - save_cache:
+          name: Save node_modules cache
+          key: v1-node-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+
+  lint:
+    docker: *docker
+    steps:
+      - checkout
+      - *restore_yarn_cache
+      - *run_yarn
+      - run: yarn eslint
+
 workflows:
-    build-and-lint:
-      jobs:
-        - build-and-lint
+  build-and-deploy:
+    jobs:
+      - setup
+      - lint:
+          requires:
+            - setup
