@@ -1,9 +1,19 @@
 import * as express from 'express'
+import * as bodyParser from 'body-parser'
 import { Request, Response } from 'express'
+import { IndexRouter } from './controllers/v0/index.router'
+const PORT_BACKEND = process.env.PORT || 3000
 
 const app = express()
-const port = 3000
+app.use(bodyParser.json())
 
-app.get('/', (req: Request, res: Response) => res.send('Hello World!'))
+app.get('/', (req: Request, res: Response) => {
+  res.send('/api/v0/')
+})
 
-app.listen(port, () => console.log(`Listening at http://localhost:${port}`))
+app.use('/api/v0/', IndexRouter)
+
+app.listen(PORT_BACKEND, () => {
+  console.log(`server running http://localhost:${PORT_BACKEND}`)
+  console.log(`press CTRL+C to stop server`)
+})
