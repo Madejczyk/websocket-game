@@ -7,6 +7,9 @@ import {
   UpdatedAt,
 } from 'sequelize-typescript'
 
+type short = {
+  nick: string
+}
 @Table
 export class User extends Model<User> {
   @PrimaryKey
@@ -23,4 +26,10 @@ export class User extends Model<User> {
   @Column
   @UpdatedAt
   public updatedAt: Date = new Date()
+
+  short(): short {
+    return {
+      nick: this.nick,
+    }
+  }
 }
