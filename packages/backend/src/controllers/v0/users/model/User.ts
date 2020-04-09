@@ -23,10 +23,4 @@ export class User extends Model<User> {
   @Column
   @UpdatedAt
   public updatedAt: Date = new Date()
-
-  short() {
-    return {
-      nick: this.nick,
-    }
-  }
 }

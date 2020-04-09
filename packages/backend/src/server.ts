@@ -5,7 +5,7 @@ import { IndexRouter } from './controllers/v0/index.router'
 import { V0MODELS } from './controllers/v0/models'
 import { sequelize } from './sequelize'
 
-;(async () => {
+(async (): Promise<void> => {
   const PORT_BACKEND = process.env.PORT || 3000
 
   await sequelize.addModels(V0MODELS)
