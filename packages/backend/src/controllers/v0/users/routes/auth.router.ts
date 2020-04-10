@@ -72,7 +72,7 @@ router.post('/login', async (req: Request, res: Response) => {
     return res.status(401).send({ auth: false, message: 'Unauthorized' })
   }
 
-  const authValid = await comparePasswords(password, user.password_hash)
+  const authValid = await comparePasswords(password, user.password)
   if (!authValid) {
     return res.status(401).send({ auth: false, message: 'Unauthorized' })
   }
@@ -105,14 +105,41 @@ router.post('/', async (req: Request, res: Response) => {
 
   const newUser = await new User({
     nick: nick,
-    // eslint-disable-next-line @typescript-eslint/camelcase
-    password_Hash: passwordHash,
+    password: passwordHash,
   })
 
   const savedUser = await newUser.save()
 
   const jwt = generateJWT(savedUser)
   return res.status(201).send({ token: jwt, user: savedUser.short() })
+})
+
+router.delete('/', async (req: Request, res: Response) => {
+  const nick = req.body.nick
+  const password = req.body.password
+
+  if (!nick) {
+    return res.status(400).send({ auth: false, message: 'Nick is required' })
+  }
+
+  const user = await User.findByPk(nick)
+  if (!user) {
+    return res.status(404).send()
+  }
+
+  if (!password || typeof password !== 'string') {
+    return res
+      .status(400)
+      .send({ auth: false, message: 'Password is required' })
+  }
+
+  const authValid = await comparePasswords(password, user.password)
+  if (!authValid) {
+    return res.status(401).send({ auth: false, message: 'Unauthorized' })
+  }
+
+  user.destroy()
+  return res.status(200).send()
 })
 
 router.get('/', (req: Request, res: Response) => {

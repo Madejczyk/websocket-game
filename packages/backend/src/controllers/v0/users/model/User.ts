@@ -17,7 +17,7 @@ export class User extends Model<User> {
   public nick!: string
 
   @Column
-  public password_hash!: string // for nullable fields
+  public password!: string // for nullable fields
 
   @Column
   @CreatedAt
