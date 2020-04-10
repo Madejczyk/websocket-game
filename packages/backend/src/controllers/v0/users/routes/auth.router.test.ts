@@ -2,12 +2,12 @@ import * as request from 'supertest'
 import * as app from '../../../../server'
 
 const REGISTER_URL = '/api/v0/users/auth/'
-const LOGIN_URL= '/api/v0/users/auth/login/'
+const LOGIN_URL = '/api/v0/users/auth/login/'
 const nick = 'nick'
 const password = 'password'
 const CORRECT_CREDENTIALS = {
   nick,
-  password
+  password,
 }
 
 describe('Post Endpoints:', () => {
@@ -40,8 +40,8 @@ describe('Post Endpoints:', () => {
             .send({
               nick,
               password: {
-                "attack": "by Object"
-              }
+                attack: 'by Object',
+              },
             })
             .set('Accept', 'application/json')
             .expect(400, { auth: false, message: 'Password is required' }, done)
@@ -120,8 +120,8 @@ describe('Post Endpoints:', () => {
             .send({
               nick: 'nick',
               password: {
-                "attack": "by Object"
-              }
+                attack: 'by Object',
+              },
             })
             .set('Accept', 'application/json')
             .expect(400, { auth: false, message: 'Password is required' }, done)
@@ -141,51 +141,51 @@ describe('Post Endpoints:', () => {
       it('401 when password is incorrect', () => {
         return new Promise((done) => {
           request(app)
-          .post(REGISTER_URL)
-          .send(CORRECT_CREDENTIALS)
-          .set('Accept', 'application/json')
-          .expect(201)
-          .end(() => {
-            request(app)
-              .post(LOGIN_URL)
-              .send({
-                nick: 'nick',
-                password: 'password2'
-              })
-              .set('Accept', 'application/json')
-              .expect(401, { auth: false, message: 'Unauthorized' })
-              .end(() => {
-                request(app)
-                  .delete(REGISTER_URL)
-                  .send(CORRECT_CREDENTIALS)
-                  .set('Accept', 'application/json')
-                  .expect(200, done)
-              })
-          })
+            .post(REGISTER_URL)
+            .send(CORRECT_CREDENTIALS)
+            .set('Accept', 'application/json')
+            .expect(201)
+            .end(() => {
+              request(app)
+                .post(LOGIN_URL)
+                .send({
+                  nick: 'nick',
+                  password: 'password2',
+                })
+                .set('Accept', 'application/json')
+                .expect(401, { auth: false, message: 'Unauthorized' })
+                .end(() => {
+                  request(app)
+                    .delete(REGISTER_URL)
+                    .send(CORRECT_CREDENTIALS)
+                    .set('Accept', 'application/json')
+                    .expect(200, done)
+                })
+            })
         })
       })
 
       it('200 when password is correct', () => {
         return new Promise((done) => {
           request(app)
-          .post(REGISTER_URL)
-          .send(CORRECT_CREDENTIALS)
-          .set('Accept', 'application/json')
-          .expect(201)
-          .end(() => {
-            request(app)
-              .post(LOGIN_URL)
-              .send(CORRECT_CREDENTIALS)
-              .set('Accept', 'application/json')
-              .expect(200)
-              .end(() => {
-                request(app)
-                  .delete(REGISTER_URL)
-                  .send(CORRECT_CREDENTIALS)
-                  .set('Accept', 'application/json')
-                  .expect(200, done)
-              })
-          })
+            .post(REGISTER_URL)
+            .send(CORRECT_CREDENTIALS)
+            .set('Accept', 'application/json')
+            .expect(201)
+            .end(() => {
+              request(app)
+                .post(LOGIN_URL)
+                .send(CORRECT_CREDENTIALS)
+                .set('Accept', 'application/json')
+                .expect(200)
+                .end(() => {
+                  request(app)
+                    .delete(REGISTER_URL)
+                    .send(CORRECT_CREDENTIALS)
+                    .set('Accept', 'application/json')
+                    .expect(200, done)
+                })
+            })
         })
       })
     })
