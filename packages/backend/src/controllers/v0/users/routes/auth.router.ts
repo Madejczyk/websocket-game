@@ -81,7 +81,7 @@ router.post('/login', async (req: Request, res: Response) => {
   return res.status(200).send({ auth: true, token: jwt, user: user.short() })
 })
 
-// register a new user
+// register
 router.post('/', async (req: Request, res: Response) => {
   const nick = req.body.nick
   const plainTextPassword = req.body.password
@@ -114,6 +114,7 @@ router.post('/', async (req: Request, res: Response) => {
   return res.status(201).send({ token: jwt, user: savedUser.short() })
 })
 
+// unregister
 router.delete('/', async (req: Request, res: Response) => {
   const nick = req.body.nick
   const password = req.body.password

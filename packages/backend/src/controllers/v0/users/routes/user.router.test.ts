@@ -1,13 +1,15 @@
 import * as request from 'supertest'
 import * as app from '../../../../server'
 
+const GET_USER_INFO_URL = '/api/v0/users/test'
+
 describe('Get Endpoints:', () => {
   describe('users', () => {
     describe('should return status code', () => {
       it('401 when unauthorization request', () => {
         return new Promise((done) => {
           request(app)
-            .get('/api/v0/users/test')
+            .get(GET_USER_INFO_URL)
             .expect(401, { message: 'No authorization headers.' }, done)
         })
       })
