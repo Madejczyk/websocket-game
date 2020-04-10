@@ -4,7 +4,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "lint:types": "tsc"
+    "lint:types": "tsc",
+    "test": "echo `Not implemented yet`"
   },
   "devDependencies": {},
   "dependencies": {}
