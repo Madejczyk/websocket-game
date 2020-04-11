@@ -11,7 +11,7 @@ router.get('/:id', requireAuth, async (req: Request, res: Response) => {
   const { id } = req.params
   const item = await User.findByPk(id)
   if (!item) {
-    return res.status(404).send('Wrong user ID')
+    return res.status(404).send({ message: 'Wrong user ID' })
   }
   return res.status(200).send(item)
 })

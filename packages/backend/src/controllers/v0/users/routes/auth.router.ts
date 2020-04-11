@@ -124,7 +124,11 @@ router.delete('/', async (req: Request, res: Response) => {
   const password = req.body.password
 
   if (!nick) {
-    return res.status(400).send({ auth: false, message: 'Nick is required' })
+    return res.status(400).send({ message: 'Nick is required' })
+  }
+
+  if (!password || typeof password !== 'string') {
+    return res.status(400).send({ message: 'Password is required' })
   }
 
   const user = await User.findByPk(nick)
@@ -132,15 +136,9 @@ router.delete('/', async (req: Request, res: Response) => {
     return res.status(404).send()
   }
 
-  if (!password || typeof password !== 'string') {
-    return res
-      .status(400)
-      .send({ auth: false, message: 'Password is required' })
-  }
-
   const authValid = await comparePasswords(password, user.password)
   if (!authValid) {
-    return res.status(401).send({ auth: false, message: 'Unauthorized' })
+    return res.status(401).send({ message: 'Unauthorized' })
   }
 
   user.destroy()
