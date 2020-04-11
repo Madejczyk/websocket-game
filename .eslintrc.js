@@ -9,4 +9,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'prettier/@typescript-eslint',
   ],
+  rules: {
+    'jest/no-test-callback': 0,
+  },
 }

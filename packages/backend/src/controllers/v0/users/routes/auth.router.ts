@@ -53,6 +53,10 @@ export function requireAuth(
   })
 }
 
+router.get('/verification', requireAuth, (req: Request, res: Response) => {
+  return res.status(200).send({ auth: true, message: 'Authenticated.' })
+})
+
 router.post('/login', async (req: Request, res: Response) => {
   const nick = req.body.nick
   const password = req.body.password
