@@ -53,6 +53,10 @@ export function requireAuth(
   })
 }
 
+router.get('/verification', requireAuth, (req: Request, res: Response) => {
+  return res.status(200).send({ auth: true, message: 'Authenticated.' })
+})
+
 router.post('/login', async (req: Request, res: Response) => {
   const nick = req.body.nick
   const password = req.body.password
@@ -81,7 +85,7 @@ router.post('/login', async (req: Request, res: Response) => {
   return res.status(200).send({ auth: true, token: jwt, user: user.short() })
 })
 
-// register a new user
+// register
 router.post('/', async (req: Request, res: Response) => {
   const nick = req.body.nick
   const plainTextPassword = req.body.password
@@ -114,12 +118,17 @@ router.post('/', async (req: Request, res: Response) => {
   return res.status(201).send({ token: jwt, user: savedUser.short() })
 })
 
+// unregister
 router.delete('/', async (req: Request, res: Response) => {
   const nick = req.body.nick
   const password = req.body.password
 
   if (!nick) {
-    return res.status(400).send({ auth: false, message: 'Nick is required' })
+    return res.status(400).send({ message: 'Nick is required' })
+  }
+
+  if (!password || typeof password !== 'string') {
+    return res.status(400).send({ message: 'Password is required' })
   }
 
   const user = await User.findByPk(nick)
@@ -127,15 +136,9 @@ router.delete('/', async (req: Request, res: Response) => {
     return res.status(404).send()
   }
 
-  if (!password || typeof password !== 'string') {
-    return res
-      .status(400)
-      .send({ auth: false, message: 'Password is required' })
-  }
-
   const authValid = await comparePasswords(password, user.password)
   if (!authValid) {
-    return res.status(401).send({ auth: false, message: 'Unauthorized' })
+    return res.status(401).send({ message: 'Unauthorized' })
   }
 
   user.destroy()

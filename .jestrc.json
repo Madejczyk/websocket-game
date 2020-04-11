@@ -5,6 +5,20 @@
   },
   "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.ts?$",
   "moduleFileExtensions": ["ts", "js", "json", "node"],
-  "collectCoverage": false,
-  "clearMocks": true
+  "collectCoverage": true,
+  "clearMocks": true,
+  "coveragePathIgnorePatterns": [
+    "/node_modules/",
+    "packages/backend/src/server.ts",
+    "packages/backend/src/sequelize.ts",
+    "packages/backend/src/config/config.ts"
+  ],
+  "coverageThreshold": {
+    "global": {
+      "branches": 80,
+      "functions": 80,
+      "lines": 80,
+      "statements": 80
+    }
+  }
 }
