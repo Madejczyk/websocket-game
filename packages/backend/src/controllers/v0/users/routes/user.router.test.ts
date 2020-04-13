@@ -36,7 +36,7 @@ describe('GET Endpoints:', () => {
           .delete(REGISTER_URL)
           .send(CORRECT_CREDENTIALS)
           .set('Accept', 'application/json')
-          .expect(200, done)
+          .expect(204, done)
       })
 
       it('401 when unauthorization request', (done) => {

@@ -142,7 +142,7 @@ router.delete('/', async (req: Request, res: Response) => {
   }
 
   user.destroy()
-  return res.status(200).send()
+  return res.status(204).send()
 })
 
 router.get('/', (req: Request, res: Response) => {

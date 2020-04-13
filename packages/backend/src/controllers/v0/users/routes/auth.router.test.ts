@@ -57,7 +57,7 @@ describe('ENDPOINTS:', () => {
                 .delete(REGISTER_URL)
                 .send(CORRECT_CREDENTIALS)
                 .set('Accept', 'application/json')
-                .expect(200, done)
+                .expect(204, done)
             })
         })
       })
@@ -205,7 +205,7 @@ describe('ENDPOINTS:', () => {
         .delete(REGISTER_URL)
         .send(CORRECT_CREDENTIALS)
         .set('Accept', 'application/json')
-        .expect(200, done)
+        .expect(204, done)
     })
 
     it('register should return 422 when user exists', (done) => {
