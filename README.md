@@ -13,7 +13,7 @@
 
 ## Backend:
 
-- Express - https://expressjs.com/
+- Express - https://expressjs.com/ with HTTPS protocol
 - Nodemon - https://nodemon.io/
 - Sequelize - https://sequelize.org/
 - JSON Web Token - https://github.com/auth0/node-jsonwebtoken
