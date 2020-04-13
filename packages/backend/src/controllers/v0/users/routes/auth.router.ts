@@ -59,7 +59,7 @@ router.get('/verification', requireAuth, (req: Request, res: Response) => {
 
 router.get('/login', (req: Request, res: Response) => {
   return res.status(403).send()
-});
+})
 
 router.post('/login', async (req: Request, res: Response) => {
   const nick = req.body.nick

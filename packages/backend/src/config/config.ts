@@ -12,5 +12,5 @@ export const config = {
   https: {
     keyPath: process.env.HTTPS_PATH_KEY || './key.pem',
     certPath: process.env.HTTPS_PATH_CERT || './cert.pem',
-  }
+  },
 }
