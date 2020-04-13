@@ -57,11 +57,15 @@ router.get('/verification', requireAuth, (req: Request, res: Response) => {
   return res.status(200).send({ auth: true, message: 'Authenticated.' })
 })
 
+router.get('/login', (req: Request, res: Response) => {
+  return res.status(403).send()
+});
+
 router.post('/login', async (req: Request, res: Response) => {
   const nick = req.body.nick
   const password = req.body.password
 
-  if (!nick) {
+  if (!nick || typeof nick !== 'string') {
     return res.status(400).send({ auth: false, message: 'Nick is required' })
   }
 
@@ -89,7 +93,7 @@ router.post('/login', async (req: Request, res: Response) => {
 router.post('/', async (req: Request, res: Response) => {
   const nick = req.body.nick
   const plainTextPassword = req.body.password
-  if (!nick) {
+  if (!nick || typeof nick !== 'string') {
     return res.status(400).send({ auth: false, message: 'Nick is required' })
   }
   if (!plainTextPassword || typeof plainTextPassword !== 'string') {
@@ -123,7 +127,7 @@ router.delete('/', async (req: Request, res: Response) => {
   const nick = req.body.nick
   const password = req.body.password
 
-  if (!nick) {
+  if (!nick || typeof nick !== 'string') {
     return res.status(400).send({ message: 'Nick is required' })
   }
 
@@ -146,7 +150,7 @@ router.delete('/', async (req: Request, res: Response) => {
 })
 
 router.get('/', (req: Request, res: Response) => {
-  res.send('auth')
+  res.status(403).send()
 })
 
 export const AuthRouter: Router = router

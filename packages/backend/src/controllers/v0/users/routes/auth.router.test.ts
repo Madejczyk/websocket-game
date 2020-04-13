@@ -106,8 +106,12 @@ describe('ENDPOINTS:', () => {
   })
 
   describe('GET:', () => {
-    it('root', (done) => {
-      request(app).get(REGISTER_URL).expect(200, done)
+    it('register', (done) => {
+      request(app).get(REGISTER_URL).expect(403, done)
+    })
+
+    it('login', (done) => {
+      request(app).get(LOGIN_URL).expect(403, done)
     })
 
     describe('verification', () => {
