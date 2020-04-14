@@ -57,7 +57,7 @@ describe('ENDPOINTS:', () => {
                 .delete(REGISTER_URL)
                 .send(CORRECT_CREDENTIALS)
                 .set('Accept', 'application/json')
-                .expect(200, done)
+                .expect(204, done)
             })
         })
       })
@@ -106,8 +106,12 @@ describe('ENDPOINTS:', () => {
   })
 
   describe('GET:', () => {
-    it('root', (done) => {
-      request(app).get(REGISTER_URL).expect(200, done)
+    it('register', (done) => {
+      request(app).get(REGISTER_URL).expect(403, done)
+    })
+
+    it('login', (done) => {
+      request(app).get(LOGIN_URL).expect(403, done)
     })
 
     describe('verification', () => {
@@ -205,7 +209,7 @@ describe('ENDPOINTS:', () => {
         .delete(REGISTER_URL)
         .send(CORRECT_CREDENTIALS)
         .set('Accept', 'application/json')
-        .expect(200, done)
+        .expect(204, done)
     })
 
     it('register should return 422 when user exists', (done) => {

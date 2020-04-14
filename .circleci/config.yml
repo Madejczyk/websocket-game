@@ -39,8 +39,7 @@ jobs:
       - *restore_yarn_cache
       - *run_yarn
       - run: yarn eslint
-
-  # ADD database for CI
+  # To Analysis why sequlize not working
   # test:
   #   docker: *docker
   #   steps:

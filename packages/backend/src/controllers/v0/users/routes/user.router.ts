@@ -7,6 +7,10 @@ const router: Router = Router()
 
 router.use('/auth', AuthRouter)
 
+router.post('/:id', (req: Request, res: Response) => {
+  return res.status(403).send()
+})
+
 router.get('/:id', requireAuth, async (req: Request, res: Response) => {
   const { id } = req.params
   const item = await User.findByPk(id)
