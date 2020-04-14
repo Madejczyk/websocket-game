@@ -13,7 +13,7 @@ const PORT_FRONTEND = 8100
 
 sequelize.addModels(V0MODELS)
 if (process.env.NODE_ENV === 'test') {
-  sequelize.sync() 
+  sequelize.sync()
 }
 
 const app = express()
@@ -21,10 +21,13 @@ app.use(express.json())
 
 // CORS Should be restricted
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', `http://localhost:${PORT_FRONTEND}`);
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  next();
-});
+  res.header('Access-Control-Allow-Origin', `http://localhost:${PORT_FRONTEND}`)
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+  )
+  next()
+})
 
 app.get('/', (req: Request, res: Response) => {
   res.send('/api/v0/')
@@ -32,16 +35,21 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use('/api/v0/', IndexRouter)
 
-const httpsServer = https.createServer({
-  key: fs.readFileSync(config.https.keyPath),
-  cert: fs.readFileSync(config.https.certPath),
-}, app);
-
 if (process.env.NODE_ENV !== 'test') {
+  const httpsServer = https.createServer(
+    {
+      key: fs.readFileSync(config.https.keyPath),
+      cert: fs.readFileSync(config.https.certPath),
+    },
+    app
+  )
+
   httpsServer.listen(PORT_HTTPS_BACKEND, () => {
-    console.log(`HTTPS Server running on https://localhost:${PORT_HTTPS_BACKEND}`)
+    console.log(
+      `HTTPS Server running on https://localhost:${PORT_HTTPS_BACKEND}`
+    )
     console.log(`press CTRL+C to stop server`)
-});
+  })
 }
 
-module.exports = app;
+module.exports = app
