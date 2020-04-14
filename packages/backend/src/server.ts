@@ -12,7 +12,10 @@ const PORT_HTTPS_BACKEND = process.env.PORT || 3000
 const PORT_FRONTEND = 8100
 
 sequelize.addModels(V0MODELS)
-// sequelize.sync() // CALL if model will changed
+if (process.env.NODE_ENV === 'test') {
+  sequelize.sync() 
+}
+
 const app = express()
 app.use(express.json())
 

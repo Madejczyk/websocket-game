@@ -40,14 +40,13 @@ jobs:
       - *run_yarn
       - run: yarn eslint
 
-  # ADD database for CI
-  # test:
-  #   docker: *docker
-  #   steps:
-  #     - checkout
-  #     - *restore_yarn_cache
-  #     - *run_yarn
-  #     - run: yarn test
+  test:
+    docker: *docker
+    steps:
+      - checkout
+      - *restore_yarn_cache
+      - *run_yarn
+      - run: yarn test
 
 workflows:
   build-and-deploy:
@@ -56,6 +55,6 @@ workflows:
       - lint:
           requires:
             - setup
-      # - test:
-      #     requires:
-      #       - setup
+      - test:
+          requires:
+            - setup
