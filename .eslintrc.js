@@ -10,6 +10,7 @@ module.exports = {
     'prettier/@typescript-eslint',
   ],
   rules: {
+    'jest/expect-expect': 0,
     'jest/no-test-callback': 0,
   },
 }
