@@ -7,11 +7,14 @@
     "build": "parcel build src/index.html src/offline.html",
     "start": "parcel src/index.html src/offline.html --port 8100 --https",
     "lint:types": "tsc",
+    "stylelint": "stylelint 'src/*.css'",
     "test": "echo `Not implemented yet`"
   },
   "devDependencies": {
     "@babel/core": "7.9.0",
-    "parcel-bundler": "1.12.4"
+    "parcel-bundler": "1.12.4",
+    "stylelint": "13.3.2",
+    "stylelint-config-standard": "20.0.0"
   },
   "dependencies": {}
 }
