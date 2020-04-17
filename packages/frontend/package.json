@@ -4,9 +4,14 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "build": "parcel build src/index.html src/offline.html",
+    "start": "parcel src/index.html src/offline.html --port 8100 --https",
     "lint:types": "tsc",
     "test": "echo `Not implemented yet`"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@babel/core": "7.9.0",
+    "parcel-bundler": "1.12.4"
+  },
   "dependencies": {}
 }

@@ -16,10 +16,12 @@
 - Express - https://expressjs.com/ with HTTPS protocol
 - Nodemon - https://nodemon.io/
 - Sequelize - https://sequelize.org/
+- ElephantSQL - https://www.elephantsql.com/
 - JSON Web Token - https://github.com/auth0/node-jsonwebtoken
 - bcrypt - https://github.com/kelektiv/node.bcrypt.js
 - Supertest - https://github.com/visionmedia/supertest
 
 ## Frontend:
 
+- Offline mode
 - We will see :)
